@@ -1,11 +1,8 @@
-// ==========================================================
-// 1. CÓDIGO DE ANIMACIÓN DÍA/NOCHE (GSAP) - ¡DIRECCIÓN CORREGIDA!
-// ==========================================================
-
 document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------
-    // LÓGICA DE DÍA/NOCHE
+    // DECLARACIÓN DE VARIABLES (Común)
     // ------------------------------------
+    // Variables para GSAP (Día/Noche)
     const themeContainer = document.querySelector('.theme-container');
     const body = document.body;
     let isNight = false;
@@ -17,7 +14,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const moon = nightBox?.querySelector('.moon');
     const devimon = nightBox?.querySelector('.devimon');
     
-    // Solo si los elementos GSAP existen, añadimos el listener
+    // Variables para la API y Eventos
+    const loader = document.getElementById("loader");
+    const gallery = document.getElementById("gallery");
+    const reloadBtn = document.getElementById("reload-btn");
+    const searchForm = document.getElementById("search-form");
+    const searchInput = document.getElementById("search-input"); 
+    const gallerySection = document.getElementById('gallery-section'); 
+
+    const API_URL = "https://digi-api.com/api/v1/digimon";
+
+
+    // ------------------------------------
+    // 1. LÓGICA DÍA/NOCHE (GSAP)
+    // ------------------------------------
     if (themeContainer && dayBox && nightBox) {
         themeContainer.addEventListener('click', () => {
             isNight = !isNight;
@@ -25,74 +35,51 @@ document.addEventListener('DOMContentLoaded', () => {
             animateTheme(isNight);
         });
     } else {
-        console.warn("Elementos del tema Día/Noche no encontrados. La animación no se activará.");
+        console.warn("Elementos del tema Día/Noche no encontrados.");
     }
 
     function animateTheme(toNight) {
         const duration = 0.8; 
         const tl = gsap.timeline();
-
-        // ----------------------------------------------------
-        // NOTA: Usamos el objeto de GSAP "position" para 
-        // hacer que los elementos se muevan a la ubicación 
-        // absoluta del otro elemento dentro del contenedor (.group).
-        // ----------------------------------------------------
+        const distance = '65%'; 
 
         if (toNight) {
-            // --- DÍA A NOCHE: INTERCAMBIO TOTAL ---
-            
-            // 1. Visibilidad de las cajas (fondo)
+            // DÍA A NOCHE: INTERCAMBIO TOTAL
             tl.to(dayBox, {opacity: 0, pointerEvents: 'none', duration: duration / 2, ease: 'power2.in'}, 0)
               .to(nightBox, {opacity: 1, pointerEvents: 'auto', duration: duration / 2, ease: 'power2.out'}, 0);
 
-            // 2. Intercambio Sol -> Luna: El sol se mueve a la posición de la luna, y la luna a la del sol
-            tl.to(sun, {x: '+=65%', opacity: 0, rotation: 180, duration: duration, ease: 'power1.inOut'}, 0) // Sol se mueve A LA DERECHA (posición de la luna)
-              .fromTo(moon, {x: '-=65%', opacity: 0, rotation: -180}, {x: '0%', opacity: 1, rotation: 0, duration: duration, ease: 'power1.inOut'}, 0); // Luna aparece DESDE LA IZQUIERDA (posición del sol)
+            // Sol -> Luna
+            tl.to(sun, {x: `+=${distance}`, opacity: 0, rotation: 180, duration: duration, ease: 'power1.inOut'}, 0)
+              .fromTo(moon, {x: `+=${distance}`, opacity: 0, rotation: -180}, {x: '0%', opacity: 1, rotation: 0, duration: duration, ease: 'power1.inOut'}, 0);
 
-            // 3. Intercambio Angemon -> Devimon:
-            // Angemon se mueve a la posición de Devimon
-            tl.to(angemon, {x: '-=65%', opacity: 0, scale: 0.9, duration: duration, ease: 'power1.inOut'}, 0) // Angemon se mueve A LA IZQUIERDA (posición de Devimon)
-            // Devimon aparece desde la posición de Angemon
-              .fromTo(devimon, {x: '+=65%', opacity: 0, scale: 0.9}, {x: '0%', opacity: 1, scale: 1, duration: duration, ease: 'power1.inOut'}, 0); // Devimon aparece DESDE LA DERECHA (posición de Angemon)
+            // Angemon -> Devimon
+            tl.to(angemon, {x: `-=${distance}`, opacity: 0, scale: 0.9, duration: duration, ease: 'power1.inOut'}, 0)
+              .fromTo(devimon, {x: `+=${distance}`, opacity: 0, scale: 0.9}, {x: '0%', opacity: 1, scale: 1, duration: duration, ease: 'power1.inOut'}, 0);
               
         } else {
-            // --- NOCHE A DÍA: INTERCAMBIO TOTAL (Inverso) ---
-
-            // 1. Visibilidad de las cajas (fondo)
+            // NOCHE A DÍA: INTERCAMBIO TOTAL (Inverso)
             tl.to(nightBox, {opacity: 0, pointerEvents: 'none', duration: duration / 2, ease: 'power2.in'}, 0)
               .to(dayBox, {opacity: 1, pointerEvents: 'auto', duration: duration / 2, ease: 'power2.out'}, 0);
 
-            // 2. Intercambio Luna -> Sol: La luna se mueve a la posición del sol, y el sol a la de la luna
-            tl.to(moon, {x: '-=65%', opacity: 0, rotation: 180, duration: duration, ease: 'power1.inOut'}, 0) // Luna se mueve A LA IZQUIERDA (posición del sol)
-              .fromTo(sun, {x: '+=65%', opacity: 0, rotation: -180}, {x: '0%', opacity: 1, rotation: 0, duration: duration, ease: 'power1.inOut'}, 0); // Sol aparece DESDE LA DERECHA (posición de la luna)
+            // Luna -> Sol
+            tl.to(moon, {x: `-=${distance}`, opacity: 0, rotation: 180, duration: duration, ease: 'power1.inOut'}, 0)
+              .fromTo(sun, {x: `-=${distance}`, opacity: 0, rotation: -180}, {x: '0%', opacity: 1, rotation: 0, duration: duration, ease: 'power1.inOut'}, 0);
 
-            // 3. Intercambio Devimon -> Angemon:
-            // Devimon se mueve a la posición de Angemon
-            tl.to(devimon, {x: '+=65%', opacity: 0, scale: 0.9, duration: duration, ease: 'power1.inOut'}, 0) // Devimon se mueve A LA DERECHA (posición de Angemon)
-            // Angemon aparece desde la posición de Devimon
-              .fromTo(angemon, {x: '-=65%', opacity: 0, scale: 0.9}, {x: '0%', opacity: 1, scale: 1, duration: duration, ease: 'power1.inOut'}, 0); // Angemon aparece DESDE LA IZQUIERDA (posición de Devimon)
+            // Devimon -> Angemon
+            tl.to(devimon, {x: `+=${distance}`, opacity: 0, scale: 0.9, duration: duration, ease: 'power1.inOut'}, 0)
+              .fromTo(angemon, {x: `+=${distance}`, opacity: 0, scale: 0.9}, {x: '0%', opacity: 1, scale: 1, duration: duration, ease: 'power1.inOut'}, 0);
         }
     }
 
     // ------------------------------------
-    // LÓGICA DE LA API Y RENDERIZADO (Se mantiene igual)
+    // 2. LÓGICA DE LA API Y RENDERIZADO
     // ------------------------------------
     
-    // Variables de la API que causaban el error 'null'
-    const loader = document.getElementById("loader");
-    const gallery = document.getElementById("gallery");
-    const reloadBtn = document.getElementById("reload-btn");
-    const searchForm = document.getElementById("search-form");
-    const searchInput = document.getElementById("search-input"); 
-
-    const API_URL = "https://digi-api.com/api/v1/digimon";
-
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    // --- Cargar Digimons aleatorios (Función que ya tenías) ---
-    async function loadDigimons(limit = 10) {
+    async function loadDigimons(limit = 5) {
         if (loader) loader.style.display = "block";
         if (gallery) gallery.innerHTML = "";
         
@@ -121,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 })
             );
+
             renderDigimons(details);
         } catch (err) {
             console.error(err);
@@ -130,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    // --- Buscar Digimon por nombre (Función que ya tenías) ---
     async function searchDigimonByName(name) {
         if (loader) loader.style.display = "block";
         if (gallery) gallery.innerHTML = "";
@@ -166,16 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    // --- Renderizar las tarjetas (Función que ya tenías) ---
     function renderDigimons(digimons) {
         if (!gallery) return;
 
         gallery.innerHTML = digimons.map((d, index) => {
             const image = d.images?.[0]?.href || "https://via.placeholder.com/150?text=No+Image";
             const level = d.levels?.[0]?.level || "Desconocido";
-
-            // Aplica las clases de inclinación cíclicamente
             const cardClassIndex = (index % 5) + 1; 
 
             return `
@@ -193,17 +175,79 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("click", () => {
                 const id = card.getAttribute("data-id");
-                window.location.href = `detail.html?id=${id}`;
+                // window.location.href = `detail.html?id=${id}`; // Línea comentada para evitar error de navegación en entornos que no soportan múltiples páginas
+                console.log(`Navegando al detalle del Digimon ID: ${id}`);
             });
         });
+        
+        // Llamar al setup del parallax SÓLO después de renderizar las tarjetas
+        setupParallaxEffect(); 
     }
 
-    // --- MANEJADORES DE EVENTOS Y CARGA INICIAL ---
-    
-    // Carga inicial
-    loadDigimons(5);
+    // ------------------------------------
+    // 3. LÓGICA DEL PARALLAX
+    // ------------------------------------
 
-    // Recarga (Botón 'Volver a generar?')
+    function setupParallaxEffect() {
+        // Importante: Selecciona las tarjetas AQUÍ, después de que se han creado.
+        const cards = document.querySelectorAll('#gallery .card'); 
+
+        if (gallerySection) {
+            gallerySection.addEventListener('mousemove', (e) => {
+                const rect = gallerySection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                cards.forEach(card => {
+                    if (!card) return; 
+
+                    const cardRect = card.getBoundingClientRect();
+                    const cardCenterX = cardRect.left + cardRect.width / 2;
+                    const cardCenterY = cardRect.top + cardRect.height / 2;
+
+                    // Distancia del ratón al centro de la tarjeta, ajustada por la posición del contenedor
+                    const distanceX = x - (cardCenterX - rect.left);
+                    const distanceY = y - (cardCenterY - rect.top);
+
+                    // Normalización de la distancia.
+                    const moveX = distanceX / 40; 
+                    const moveY = distanceY / 40; 
+                    
+                    // Usamos GSAP para animar el desplazamiento de forma suave
+                    gsap.to(card, {
+                        x: moveX,
+                        y: moveY,
+                        duration: 0.5, 
+                        ease: "power2.out",
+                        overwrite: "auto" 
+                    });
+                });
+            });
+
+            // Al salir del área de la galería, las tarjetas vuelven a su posición original
+            gallerySection.addEventListener('mouseleave', () => {
+                cards.forEach(card => {
+                    gsap.to(card, {
+                        x: 0,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        overwrite: "auto"
+                    });
+                });
+            });
+        }
+    }
+
+
+    // ------------------------------------
+    // 4. MANEJADORES DE EVENTOS Y CARGA INICIAL
+    // ------------------------------------
+    
+    // Carga inicial de Digimons
+    loadDigimons(5); 
+
+    // Recarga (Botón 'Cargar Digimon aleatorios')
     if (reloadBtn) {
         reloadBtn.addEventListener("click", () => loadDigimons(5));
     }

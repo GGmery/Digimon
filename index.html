@@ -39,31 +39,31 @@
 
     <main>
         <section id="search-section">
-            <div class="search-box">
-                <span class="material-icons search-icon">search</span>
-                <input type="text" id="search-input" placeholder="Busca aquí cualquier Digimon">
-            </div>
+            <form id="search-form" class="search-form-full">
+                <div class="search-box">
+                    <span class="material-icons search-icon">search</span>
+                    <input type="text" id="search-input" placeholder="Busca aquí cualquier Digimon">
+                </div>
+                <button type="submit" style="display: none;">Buscar</button> 
+            </form>
         </section>
+
+        <div id="loader" class="loader-circle" style="display:none;">Cargando Digimons...</div>
 
         <section id="gallery-section">
             <div id="gallery" class="gallery">
-                <div class="card card-1"></div>
-                <div class="card card-2"></div>
-                <div class="card card-3"></div>
-                <div class="card card-4"></div>
-                <div class="card card-5">
-                </div>
+                
             </div>
         </section>
 
         <section class="controls-section">
-            <button class="reload-btn small-btn">¿Volver a generar?</button>
+            <button id="reload-btn" class="reload-btn small-btn">Cargar Digimon aleatorios</button>
             <button class="small-btn music-btn">Música</button>
         </section>
     </main>
 
     <footer>
-        <p>Footer</p>
+        <p>GGmery. Todos los derechos reservados</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>

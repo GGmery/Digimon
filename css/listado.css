@@ -6,10 +6,10 @@
     --color-card-gray: #d9d9d9;
     --color-footer-gray: #ccc;
     --color-search-border: #999;
-    --color-avatar-bg: #387062; /* Verde oscuro del avatar 'M' */
+    --color-avatar-bg: #387062;
     --color-avatar-text: white;
     
-    /* Variables para el Dark Theme (Se activarán con JS) */
+    /* Variables para el Dark Theme */
     --color-dark-bg: #1e1e1e;
     --color-dark-card-bg: #444;
     --color-dark-text: #f0f0f0;
@@ -28,7 +28,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background-color 0.5s, color 0.5s; /* Transición para el cambio de tema */
+    transition: background-color 0.5s, color 0.5s;
 }
 
 /* Estilos para el Modo Noche (activados por JS) */
@@ -94,7 +94,7 @@ body.dark-theme header {
     align-items: center;
     background-color: white;
     border: 2px solid var(--color-search-border);
-    border-radius: 50px; /* Forma de píldora/elipse larga */
+    border-radius: 50px;
     padding: 10px 20px;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -145,7 +145,7 @@ body.dark-theme #search-input {
     display: flex;
     justify-content: center;
     gap: 20px;
-    perspective: 1000px; /* Para la inclinación 3D */
+    perspective: 1000px; 
     width: 100%;
     max-width: 1000px;
 }
@@ -158,7 +158,25 @@ body.dark-theme #search-input {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     position: relative;
-    transition: background-color 0.5s, border-color 0.5s;
+    cursor: pointer;
+    
+    /* Asegura que el contenido, incluso el texto largo, no se salga de la tarjeta */
+    overflow: hidden; 
+
+    transition: 
+        background-color 0.5s, 
+        border-color 0.5s,
+        box-shadow 0.3s ease; 
+    transform-style: preserve-3d;
+}
+
+/* Hover suave: Solo un cambio de sombra */
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); 
+}
+
+body.dark-theme .card:hover {
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15); 
 }
 
 body.dark-theme .card {
@@ -166,36 +184,46 @@ body.dark-theme .card {
     border-color: var(--color-dark-text);
 }
 
-/* Inclinación para simular el arco de la imagen */
-.card-1 { transform: rotate(-10deg) translateY(20px); }
-.card-2 { transform: rotate(-5deg) translateY(10px); }
-.card-3 { transform: rotate(0deg); }
-.card-4 { transform: rotate(5deg) translateY(10px); }
-.card-5 { transform: rotate(10deg) translateY(20px); }
-
-/* AVATAR M (en la última carta) */
-.user-avatar {
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--color-avatar-bg);
-    color: var(--color-avatar-text);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 1.2rem;
-    border: 3px solid white; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: border-color 0.5s;
+.card img {
+    width: 100%;
+    height: 60%; /* 150px de altura para la imagen */
+    object-fit: contain;
+    padding: 10px;
 }
 
-body.dark-theme .user-avatar {
-    border-color: var(--color-dark-bg);
+.card-info {
+    padding: 5px 10px; /* Padding reducido para dar más espacio al texto */
+    text-align: center;
+    /* Esto asegura que la info no se salga, el overflow:hidden en .card también ayuda */
+    height: 40%; /* El 40% restante de los 250px de altura */
 }
+
+/* Gestión de texto largo (el fix para el desbordamiento) */
+.card-info h3 {
+    font-size: 0.9rem; /* Un poco más pequeño */
+    white-space: nowrap; /* Fuerza a que sea una sola línea */
+    overflow: hidden; /* Oculta el texto que se sale */
+    text-overflow: ellipsis; /* Añade "..." al final si está recortado */
+    margin-bottom: 3px;
+}
+
+.card-info p {
+    font-size: 0.8rem; /* Texto del nivel más pequeño */
+}
+
+/* === ARCO (MONTAÑITA) - CORRECCIÓN DE ALTURA AGRESIVA === */
+
+/* Tarjeta 1 y 5: Baja 100px (el punto más bajo del arco) */
+.card-1 { transform: rotate(-10deg) translateY(100px); }
+.card-5 { transform: rotate(10deg) translateY(100px); }
+
+/* Tarjeta 2 y 4: Baja 30px (el punto medio del arco) */
+.card-2 { transform: rotate(-5deg) translateY(30px); }
+.card-4 { transform: rotate(5deg) translateY(30px); }
+
+/* Tarjeta 3: Cima de la montañita (0 desplazamiento vertical) */
+.card-3 { transform: rotate(0deg) translateY(0px); }
+
 
 /* === BOTONES INFERIORES === */
 .controls-section {
@@ -231,7 +259,6 @@ body.dark-theme .small-btn:hover {
     background-color: #555;
 }
 
-/* Ajuste del botón 'Música' */
 .music-btn {
     background-color: #e0e0e0;
 }
@@ -272,24 +299,30 @@ body.dark-theme footer {
 }
 
 /* === RECTÁNGULO DE FONDO === */
-/* La animación del rectángulo se hace cambiando src y opacidad de las cajas */
 .theme-container .rectangle1 {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: fill; 
     z-index: 0;
 }
 
-/* === GRUPOS === */
+/* === GRUPOS (DAY/NIGHT BOX) === */
 .group {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    transition: opacity 0.5s ease; /* Transición base */
+    transition: opacity 0.5s ease;
+}
+
+/* === ESTADO INICIAL DEL MODO NOCHE === */
+.night-box {
+    opacity: 0; 
+    pointer-events: none; 
 }
 
 /* === SOL / LUNA === */
@@ -298,7 +331,7 @@ body.dark-theme footer {
     width: 22%;
     height: 70%;
     top: 15%;
-    left: 5%; /* Posición inicial del Sol (Día) */
+    left: 5%; 
     z-index: 1;
 }
 .sol img {
@@ -312,9 +345,9 @@ body.dark-theme footer {
     width: 22%;
     height: 70%;
     top: 15%;
-    right: 5%; /* Posición final de la Luna (Noche) */
+    right: 5%; 
     z-index: 1;
-    opacity: 0; /* Oculta la Luna en estado inicial (JS manejará la aparición) */
+    opacity: 0; 
 }
 .moon img {
     width: 100%;
@@ -326,7 +359,7 @@ body.dark-theme footer {
 .angemon {
     position: absolute;
     top: 1px;
-    right: 10px; /* Posición inicial de Angemon (Día) */
+    right: 10px; 
     width: 59px;
     height: 59px;
     object-fit: cover;
@@ -336,7 +369,7 @@ body.dark-theme footer {
 
 .devimon {
     position: absolute;
-    top: 1px;
+    top: 1px; /* Alineación superior (vertical) igual a Angemon */
     left: 10px; 
     width: 56px;
     height: 56px;
@@ -344,9 +377,4 @@ body.dark-theme footer {
     aspect-ratio: 1;
     z-index: 2;
     opacity: 0; 
-
-/* === ESTADO INICIAL DEL MODO NOCHE === */
-.night-box {
-    opacity: 0; 
-    pointer-events: none; /* Desactiva clics hasta que GSAP lo active */
 }
