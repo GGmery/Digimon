@@ -1,0 +1,352 @@
+/* === GENERALES Y RESET BÁSICO === */
+:root {
+    /* Paleta de la imagen: blanco/gris muy claro */
+    --color-background-light: #f5f5f5;
+    --color-text-dark: #333;
+    --color-card-gray: #d9d9d9;
+    --color-footer-gray: #ccc;
+    --color-search-border: #999;
+    --color-avatar-bg: #387062; /* Verde oscuro del avatar 'M' */
+    --color-avatar-text: white;
+    
+    /* Variables para el Dark Theme (Se activarán con JS) */
+    --color-dark-bg: #1e1e1e;
+    --color-dark-card-bg: #444;
+    --color-dark-text: #f0f0f0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.5s, color 0.5s; /* Transición para el cambio de tema */
+}
+
+/* Estilos para el Modo Noche (activados por JS) */
+body.dark-theme {
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* === HEADER / TOP BAR === */
+header {
+    background-color: white;
+    padding: 10px 20px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+body.dark-theme header {
+    background-color: var(--color-dark-bg);
+    border-bottom-color: #333;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.digimon-logo {
+    width: 50px; 
+    height: auto;
+}
+
+.logo-container h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* === ESTRUCTURA DE BÚSQUEDA === */
+#search-section {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px 0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 2px solid var(--color-search-border);
+    border-radius: 50px; /* Forma de píldora/elipse larga */
+    padding: 10px 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s, border-color 0.5s, box-shadow 0.5s;
+}
+
+body.dark-theme .search-box {
+    background-color: var(--color-dark-bg);
+    border-color: var(--color-dark-text);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.search-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+    color: var(--color-search-border);
+    transition: color 0.5s;
+}
+
+body.dark-theme .search-icon {
+    color: var(--color-dark-text);
+}
+
+#search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: none;
+    color: var(--color-text-dark);
+    transition: color 0.5s;
+}
+
+body.dark-theme #search-input {
+    color: var(--color-dark-text);
+}
+
+/* === GALERÍA DE CARTAS === */
+#gallery-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    perspective: 1000px; /* Para la inclinación 3D */
+    width: 100%;
+    max-width: 1000px;
+}
+
+.card {
+    width: 150px;
+    height: 250px;
+    background-color: var(--color-card-gray);
+    border: 1px solid var(--color-search-border);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+body.dark-theme .card {
+    background-color: var(--color-dark-card-bg);
+    border-color: var(--color-dark-text);
+}
+
+/* Inclinación para simular el arco de la imagen */
+.card-1 { transform: rotate(-10deg) translateY(20px); }
+.card-2 { transform: rotate(-5deg) translateY(10px); }
+.card-3 { transform: rotate(0deg); }
+.card-4 { transform: rotate(5deg) translateY(10px); }
+.card-5 { transform: rotate(10deg) translateY(20px); }
+
+/* AVATAR M (en la última carta) */
+.user-avatar {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-avatar-bg);
+    color: var(--color-avatar-text);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: 3px solid white; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.5s;
+}
+
+body.dark-theme .user-avatar {
+    border-color: var(--color-dark-bg);
+}
+
+/* === BOTONES INFERIORES === */
+.controls-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.small-btn {
+    padding: 8px 20px;
+    border: 1px solid var(--color-search-border);
+    background-color: var(--color-card-gray);
+    color: var(--color-text-dark);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+}
+
+.small-btn:hover {
+    background-color: #cacaca;
+}
+
+body.dark-theme .small-btn {
+    background-color: var(--color-dark-card-bg);
+    color: var(--color-dark-text);
+    border-color: var(--color-dark-text);
+}
+
+body.dark-theme .small-btn:hover {
+    background-color: #555;
+}
+
+/* Ajuste del botón 'Música' */
+.music-btn {
+    background-color: #e0e0e0;
+}
+
+body.dark-theme .music-btn {
+    background-color: #333;
+}
+
+/* === FOOTER === */
+footer {
+    background-color: var(--color-footer-gray);
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    color: var(--color-text-dark);
+    font-size: 1rem;
+    margin-top: 30px;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+body.dark-theme footer {
+    background-color: #111;
+    color: var(--color-dark-text);
+}
+
+
+/* ########################################## */
+/* === ESTILOS DEL BOTÓN DÍA/NOCHE (GSAP) === */
+/* ########################################## */
+
+/* === CONTENEDOR PRINCIPAL === */
+.theme-container {
+    position: relative;
+    width: 197px;
+    height: 69px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* === RECTÁNGULO DE FONDO === */
+/* La animación del rectángulo se hace cambiando src y opacidad de las cajas */
+.theme-container .rectangle1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* === GRUPOS === */
+.group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease; /* Transición base */
+}
+
+/* === SOL / LUNA === */
+.sol {
+    position: absolute;
+    width: 22%;
+    height: 70%;
+    top: 15%;
+    left: 5%; /* Posición inicial del Sol (Día) */
+    z-index: 1;
+}
+.sol img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.moon {
+    position: absolute;
+    width: 22%;
+    height: 70%;
+    top: 15%;
+    right: 5%; /* Posición final de la Luna (Noche) */
+    z-index: 1;
+    opacity: 0; /* Oculta la Luna en estado inicial (JS manejará la aparición) */
+}
+.moon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* === ANGEMON / DEVIMON === */
+.angemon {
+    position: absolute;
+    top: 1px;
+    right: 10px; /* Posición inicial de Angemon (Día) */
+    width: 59px;
+    height: 59px;
+    object-fit: cover;
+    aspect-ratio: 1;
+    z-index: 2;
+}
+
+.devimon {
+    position: absolute;
+    top: 1px;
+    left: 10px; 
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    aspect-ratio: 1;
+    z-index: 2;
+    opacity: 0; 
+
+/* === ESTADO INICIAL DEL MODO NOCHE === */
+.night-box {
+    opacity: 0; 
+    pointer-events: none; /* Desactiva clics hasta que GSAP lo active */
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digimon</title>
+    <link rel="stylesheet" href="css/listado.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo-container">
+                <img src="assets/img/logo.png" alt="Logo Digimon" class="digimon-logo">
+                <h1>Digimon</h1>
+            </div>
+
+            <div class="theme-container">
+                <div class="day-box group">
+                    <img class="rectangle1" src="assets/img/rectangle-1.svg" alt="Fondo día">
+                    <div class="sol">
+                        <img class="ellipse" src="assets/img/sun.svg" alt="Sol decorativo">
+                    </div>
+                    <img class="angemon" src="assets/img/Angemon.webp" alt="Angemon">
+                </div>
+
+                <div class="night-box group">
+                    <img class="rectangle1" src="assets/img/rectangle-2.svg" alt="Fondo noche">
+                    <div class="moon">
+                        <img class="ellipse" src="assets/img/moon.svg" alt="Luna decorativa"> 
+                    </div>
+                    <img class="devimon" src="assets/img/Devimon.webp" alt="Devimon"> </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="search-section">
+            <div class="search-box">
+                <span class="material-icons search-icon">search</span>
+                <input type="text" id="search-input" placeholder="Busca aquí cualquier Digimon">
+            </div>
+        </section>
+
+        <section id="gallery-section">
+            <div id="gallery" class="gallery">
+                <div class="card card-1"></div>
+                <div class="card card-2"></div>
+                <div class="card card-3"></div>
+                <div class="card card-4"></div>
+                <div class="card card-5">
+                </div>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <button class="reload-btn small-btn">¿Volver a generar?</button>
+            <button class="small-btn music-btn">Música</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Footer</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="js/listado.js"></script>
+</body>
+</html>
