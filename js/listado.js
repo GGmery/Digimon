@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("click", () => {
                 const id = card.getAttribute("data-id");
-                // window.location.href = `detail.html?id=${id}`; // Línea comentada para evitar error de navegación en entornos que no soportan múltiples páginas
+                window.location.href = `detalles.html?id=${id}`; // Línea comentada para evitar error de navegación en entornos que no soportan múltiples páginas
                 console.log(`Navegando al detalle del Digimon ID: ${id}`);
             });
         });

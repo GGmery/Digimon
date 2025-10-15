@@ -1,27 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles</title>
+  <link rel="stylesheet" href="css/detalles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+  <header>
     <div class="top-bar">
-        <label class="theme-switch">
-            <span class="slider">
-            </span>
-        </label>
+      <div class="logo-container">
+        <img src="assets/img/logo.png" alt="Logo Digimon" class="digimon-logo">
+        <h1>Digimon</h1>
+      </div>
 
-        <div class="right-content">
-            <!--Añadir música-->
+      <div class="theme-container">
+        <!-- ☀️ Día -->
+        <div class="day-box group">
+          <img class="rectangle1" src="assets/img/rectangle-1.svg" alt="Fondo día">
+          <div class="sol">
+            <img class="ellipse" src="assets/img/sun.svg" alt="Sol decorativo">
+          </div>
+          <img class="angemon" src="assets/img/Angemon.webp" alt="Angemon">
         </div>
+
+        <!-- 🌙 Noche -->
+        <div class="night-box group">
+          <img class="rectangle1" src="assets/img/rectangle-2.svg" alt="Fondo noche">
+          <div class="moon">
+            <img class="ellipse" src="assets/img/moon.svg" alt="Luna decorativa">
+          </div>
+          <img class="devimon" src="assets/img/Devimon.webp" alt="Devimon">
+        </div>
+      </div>
     </div>
+  </header>
 
-    <h1>Digimon</h1>
+  <main>
+    <section id="detail-section">
+      <div id="loader" class="loader-circle" style="display:none;">Cargando detalles...</div>
 
-    <div id="loader" class="loader">Cargando...</div>
-    <div id="gallery" class="gallery"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="js/listado.js"></script>
+      <div id="detail-container" class="detail-container">
+        <!-- Imagen principal -->
+        <div class="detail-image">
+          <img id="digimon-image" src="" alt="Imagen del Digimon">
+        </div>
+
+        <!-- Información principal -->
+        <div class="detail-info">
+          <h2 id="digimon-name">Nombre del Digimon</h2>
+          <ul class="info-list">
+            <li><strong>Nivel:</strong> <span id="digimon-level"></span></li>
+            <li><strong>Tipo:</strong> <span id="digimon-type"></span></li>
+            <li><strong>Campo:</strong> <span id="digimon-field"></span></li>
+            <li><strong>Atributo:</strong> <span id="digimon-attribute"></span></li>
+          </ul>
+
+          <p id="digimon-description" class="description">
+            Descripción del Digimon...
+          </p>
+        </div>
+      </div>
+
+      <!-- Línea evolutiva -->
+      <section id="evolution-line" class="evolution-line">
+        <h3>Línea Evolutiva</h3>
+        <div id="evolution-container" class="evolution-container">
+          <!-- Aquí se insertarán las evoluciones -->
+        </div>
+      </section>
+
+      <!-- Botón volver -->
+      <div class="back-section">
+        <button id="back-btn" class="small-btn back-btn">
+          <span class="material-icons">arrow_back</span> Volver
+        </button>
+      </div>
+    </section>
+  </main>
+  <div id="music-bar" class="music-bar">
+    <img src="assets/img/music-rectangle.svg" alt="Fondo de la barra de música" class="music-bg"/>
+    
+    <div id="music-control-btn" class="music-control-btn">
+      <img id="play-pause-icon" src="assets/img/play.svg" alt="Play/Pause" class="music-icon"/>
+    </div>
+    <div id="song-info" class="song-info">
+      Brave Heart - Ayumi Miyazaki
+    </div>
+    
+    <!-- Menú de hamburguesa dentro del music-bar -->
+    <div id="music-menu" class="music-menu">
+      <!-- <div id="hamburger-btn" class="hamburger-btn">&#9776;</div> -->
+      <ul id="song-list" class="song-list hidden">
+        <li data-index="0">Brave Heart - Ayumi Miyazaki</li>
+        <li data-index="1">Butterfly - Kōji Wada</li>
+        <li data-index="2">¿Qué es esto? - ¿?</li>
+      </ul>
+    </div>
+  </div>
+  <footer>
+    <p>GGmery. Todos los derechos reservados</p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="js/detalles.js"></script>
 </body>
 </html>

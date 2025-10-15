@@ -1,0 +1,427 @@
+/* === GENERALES Y RESET BÁSICO === */
+:root {
+    /* Paleta de colores base */
+    --color-primary: #007bff; /* Azul Digimon clásico */
+    --color-text-light: #f0f0f0;
+    --color-text-dark: #333;
+    --color-bg-light: #f5f5f5;
+    --color-bg-white: #ffffff;
+    --color-card-border: #ccc;
+    
+    /* Variables para Dark Theme */
+    --color-dark-bg: #1a1a2e; /* Azul oscuro profundo */
+    --color-dark-card-bg: #2c2c4b;
+    --color-dark-text: #e0e0f8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  transition: background-image 0.5s ease;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-dark);
+  min-height: 100vh;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* ESTILOS PARA MODO NOCHE */
+body.dark-theme {
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+}
+
+/* === HEADER / TOP BAR === */
+header {
+    background-color: var(--color-bg-white);
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--color-card-border);
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+body.dark-theme header {
+    background-color: var(--color-dark-card-bg);
+    border-bottom-color: #333;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.digimon-logo {
+    width: 40px; 
+    height: auto;
+}
+
+.logo-container h1 {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* === THEME BUTTON === */
+.theme-container {
+    position: relative;
+    width: 197px;
+    height: 69px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.theme-container .rectangle1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill; 
+    z-index: 0;
+}
+
+.group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.night-box {
+    opacity: 0; 
+    pointer-events: none; 
+}
+
+.sol, .moon {
+    position: absolute;
+    width: 22%;
+    height: 70%;
+    top: 10%;
+    z-index: 1;
+}
+
+.sol { left: 5%; }
+.moon { right: 10%; opacity: 0; }
+
+.sol img, .moon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.angemon, .devimon {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    aspect-ratio: 1;
+    z-index: 2;
+}
+
+.angemon { top: 1px; right: 10px; }
+.devimon { top: 1px; left: 10px; opacity: 0; }
+
+/* === MAIN CONTENT === */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#detail-section {
+    max-width: 900px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.loader-circle {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--color-primary);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-top: 50px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--color-bg-white);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    width: 100%;
+    transition: background-color 0.5s;
+}
+
+body.dark-theme .detail-container {
+    background-color: var(--color-dark-card-bg);
+}
+
+.detail-image {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#digimon-image {
+    max-width: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.detail-info {
+    flex: 2;
+    padding-left: 30px;
+}
+
+@media (max-width: 768px) {
+    .detail-container { flex-direction: column; text-align: center; }
+    .detail-info { padding-left: 0; padding-top: 20px; }
+}
+
+#digimon-name { font-size: 2.2rem; color: var(--color-primary); margin-bottom: 20px; }
+
+.info-list { list-style: none; margin-bottom: 20px; padding-left: 0; }
+.info-list li { font-size: 1.1rem; line-height: 1.8; border-bottom: 1px dashed var(--color-card-border); padding: 5px 0; }
+body.dark-theme .info-list li { border-bottom-color: #444; }
+
+.description { font-style: italic; line-height: 1.6; margin-top: 20px; }
+
+/* === EVOLUTION LINE === */
+.evolution-line {
+    width: 100%;
+    padding: 20px;
+    background-color: var(--color-bg-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.5s;
+}
+
+body.dark-theme .evolution-line { background-color: var(--color-dark-card-bg); }
+
+.evolution-line h3 {
+    font-size: 1.6rem;
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-card-border);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+body.dark-theme .evolution-line h3 { border-bottom-color: #444; }
+
+.evolution-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.evolution-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.evolution-card:hover { background-color: var(--color-bg-light); transform: translateY(-5px); }
+body.dark-theme .evolution-card:hover { background-color: #3f3f5a; }
+
+.evolution-card img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 5px; }
+.evolution-card p { font-size: 0.85rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100px; }
+
+/* === BOTÓN VOLVER === */
+.back-section { width: 100%; max-width: 900px; text-align: center; }
+
+.small-btn {
+    padding: 10px 25px;
+    border: none;
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.small-btn:hover { background-color: #0056b3; transform: translateY(-2px); }
+
+/* === FOOTER === */
+footer {
+    width: 100%;
+    padding: 20px;
+    background: #111;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 50;
+}
+
+/* ========================= */
+/* 🎵 BARRA DE MÚSICA */
+.music-bar {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: 350px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.music-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.music-control-btn { position: relative; z-index: 2; margin-left: 50px;}
+.music-icon { width: 40px; height: 40px; }
+.song-info { color: #000; font-size: 10px; margin-left:50px;z-index: 2; }
+
+
+.musica{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+/* Botón de control */
+.music-control-btn img {
+  width: 32px;
+  cursor: pointer;
+}
+
+/* Info de la canción */
+.song-info {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Menú hamburguesa */
+.music-menu {
+  position: relative;
+}
+
+.hamburger-btn {
+  font-size: 20px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 5px 10px;
+}
+
+/* Lista de canciones */
+.song-list {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
+
+.song-list.hidden{
+    display: none !important;
+}
+
+.song-list.show {
+  display: block;
+}
+
+.song-list li {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.song-list li:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* ========================= */
+/* IMÁGENES ERROR (OCULTAS INICIALMENTE) */
+#error1, #error2 {
+    position: fixed;
+    bottom: 90px; /* Justo encima del reproductor */
+    width: 60px;
+    height: 60px;
+    z-index: 650;
+    display: none;
+}
+
+#error1 { left: calc(50% - 180px); }
+#error2 { right: calc(50% - 180px); }
+
+/* FONDO ERROR3 */
+body.error-bg {
+    background-image: url('assets/img/error3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease;
+}
