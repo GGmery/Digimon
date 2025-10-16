@@ -263,3 +263,244 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ============================
+// 🎵 REPRODUCTOR DE MÚSICA
+// ============================
+const musicBar = document.getElementById("music-bar");
+const playPauseIcon = document.getElementById("play-pause-icon");
+const detailContainerEl = document.querySelector(".detail-container");
+const footer = document.querySelector("footer");
+
+const songsList = [
+  { title: "Brave Heart", artist: "Ayumi Miyazaki", file: "assets/audio/Brave Heart - Ayumi Miyazaki.mp3" },
+  { title: "Butterfly", artist: "Kōji Wada", file: "assets/audio/Butterfly - Kōji Wada.mp3" },
+  { title: "¿Perdón?", artist: "¿?", file: "assets/audio/Qué es esto.mp3"}
+]
+
+let currentIndex = 0;
+let isPlaying = false;
+const audio = new Audio();
+audio.loop = false;
+
+function playSong() {
+  const song = songsList[currentIndex];
+  audio.src = song.file;
+  audio.play();
+  playPauseIcon.src = "assets/img/pause.svg";
+  isPlaying = true;
+
+  handleKirbyEffect();
+  updateSongInfo();
+}
+
+function updateSongInfo() {
+  const song = songsList[currentIndex];
+  const songInfo = document.getElementById("song-info");
+  if (songInfo) songInfo.textContent = `${song.title} - ${song.artist}`;
+}
+
+function togglePlayPause() {
+  if (!audio.src) playSong();
+  else if (isPlaying) {
+    audio.pause();
+    playPauseIcon.src = "assets/img/play.svg";
+    isPlaying = false;
+    handleKirbyEffect();
+  } else {
+    audio.play();
+    playPauseIcon.src = "assets/img/pause.svg";
+    isPlaying = true;
+    handleKirbyEffect();
+  }
+}
+
+musicBar.addEventListener("click", (e) => {
+  if (e.target.closest("#hamburger-btn")) return;
+  togglePlayPause();
+});
+
+audio.addEventListener("ended", () => {
+  isPlaying = false;      // La canción ya no está sonando
+  togglePlayPauseIcon();  // Cambia el icono a play
+  handleKirbyEffect();    // Esto quitará el efecto Kirby
+  document.body.classList.remove("error-bg"); // Quita fondo si estabas usando error3.jpg
+});
+
+function togglePlayPauseIcon() {
+  playPauseIcon.src = "assets/img/play.svg";
+}
+
+
+// ============================
+// 🌟 EFECTO KIRBY
+// ============================
+// Crear contenedores si no existen
+let kirbyLeftContainer = document.getElementById("kirby-left-container");
+if (!kirbyLeftContainer) {
+  kirbyLeftContainer = document.createElement("div");
+  kirbyLeftContainer.id = "kirby-left-container";
+  document.body.appendChild(kirbyLeftContainer);
+
+  const imgLeft = document.createElement("img");
+  imgLeft.src = "assets/img/error1.gif";
+  kirbyLeftContainer.appendChild(imgLeft);
+}
+
+let kirbyRightContainer = document.getElementById("kirby-right-container");
+if (!kirbyRightContainer) {
+  kirbyRightContainer = document.createElement("div");
+  kirbyRightContainer.id = "kirby-right-container";
+  document.body.appendChild(kirbyRightContainer);
+
+  const imgRight = document.createElement("img");
+  imgRight.src = "assets/img/error1.gif";
+  kirbyRightContainer.appendChild(imgRight);
+}
+
+let kirbyInterval;
+
+function startKirbyRain() {
+  kirbyInterval = setInterval(() => {
+    const kirby = document.createElement("img");
+    kirby.src = "assets/img/error4.gif";
+    kirby.className = "kirby-rain";
+
+    // Tamaño aleatorio
+    const size = 50 + Math.random() * 50; // 50-100px
+    kirby.style.width = size + "px";
+    kirby.style.height = size + "px";
+
+    const fromLeft = Math.random() < 0.5; // dirección
+
+    // Posición vertical aleatoria dentro de la pantalla
+    const startTop = Math.random() * (window.innerHeight - size);
+    kirby.style.top = startTop + "px";
+
+    // Posición horizontal inicial
+    kirby.style.left = fromLeft ? -size + "px" : window.innerWidth + "px";
+
+    document.body.appendChild(kirby);
+
+    // Rotación inicial aleatoria
+    const rotation = Math.random() * 360;
+
+    // Duración aleatoria
+    const duration = 5000 + Math.random() * 5000; // 5-10s
+    const startTime = performance.now();
+
+    function animate(time) {
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Movimiento horizontal completo
+      if (fromLeft) {
+        kirby.style.left = -size + (window.innerWidth + size) * progress + "px";
+        kirby.style.top = startTop + progress * (window.innerHeight * 0.3) + "px"; // se mueve hacia abajo
+      } else {
+        kirby.style.left = window.innerWidth - (window.innerWidth + size) * progress + "px";
+        kirby.style.top = startTop - progress * (window.innerHeight * 0.3) + "px"; // se mueve hacia arriba
+      }
+
+      // Rotación mientras se mueve
+      kirby.style.transform = `rotate(${rotation + progress * 360}deg)`;
+
+      if (progress < 1) requestAnimationFrame(animate);
+      else kirby.remove();
+    }
+
+    requestAnimationFrame(animate);
+
+  }, 400); // cada 400ms aparece un kirby
+}
+
+function stopKirbyRain() {
+  clearInterval(kirbyInterval);
+  document.querySelectorAll(".kirby-rain").forEach(k => k.remove());
+}
+
+
+// Integrarlo con tu reproductor
+function handleKirbyEffect() {
+  const song = songsList[currentIndex];
+  if (song.title === "¿Perdón?" && isPlaying) {
+    document.body.classList.add("error-bg");
+    startKirbyRain();
+  } else {
+    document.body.classList.remove("error-bg");
+    stopKirbyRain();
+  }
+}
+
+
+// Mostrar/ocultar Kirby según la canción
+function handleKirbyEffect() {
+  const song = songsList[currentIndex];
+  const leftImg = kirbyLeftContainer.querySelector("img");
+  const rightImg = kirbyRightContainer.querySelector("img");
+
+  if (song.title === "¿Perdón?" && isPlaying) {
+    leftImg.style.display = "block";
+    rightImg.style.display = "block";
+    document.body.classList.add("error-bg");
+    startKirbyRain(); 
+  } else {
+    leftImg.style.display = "none";
+    rightImg.style.display = "none";
+    document.body.classList.remove("error-bg");
+    stopKirbyRain();
+  }
+}
+
+
+
+// ============================
+// 🧭 MENÚ HAMBURGUESA
+// ============================
+
+// Botón de hamburguesa dentro del musicBar
+let hamburgerBtn = document.querySelector("#hamburger-btn");
+if (!hamburgerBtn) {
+  hamburgerBtn = document.createElement("button");
+  hamburgerBtn.id = "hamburger-btn";
+  hamburgerBtn.className = "music-menu-btn";
+  hamburgerBtn.textContent = "☰";
+  musicBar.insertBefore(hamburgerBtn, musicBar.firstChild); // a la izquierda
+}
+
+// Lista de canciones (si no existe, la creamos)
+let songList = document.querySelector(".music-menu-list");
+if (!songList) {
+  songList = document.createElement("div");
+  songList.className = "music-menu-list";
+  musicBar.appendChild(songList); // ⬅️ dentro de musicBar
+}
+
+// Vaciar lista y generar items
+songList.innerHTML = "";
+songsList.forEach((song, index) => {
+  const songItem = document.createElement("div");
+  songItem.textContent = `${song.title} - ${song.artist}`;
+  songItem.setAttribute("data-index", index);
+  songList.appendChild(songItem);
+
+  // Click en la canción
+  songItem.addEventListener("click", () => {
+    currentIndex = index;
+    playSong(song.file);
+    songList.classList.remove("show");
+  });
+});
+
+// Mostrar / ocultar menú
+hamburgerBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  songList.classList.toggle("show");
+});
+
+// Cerrar menú al hacer click fuera
+document.addEventListener("click", (e) => {
+  if (!songList.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+    songList.classList.remove("show");
+  }
+});

@@ -378,3 +378,187 @@ body.dark-theme footer {
     z-index: 2;
     opacity: 0; 
 }
+
+/* === FOOTER === */
+footer {
+    width: 100%;
+    padding: 20px;
+    background: #111;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 50;
+}
+
+/* ========================= */
+/* 🎵 BARRA DE MÚSICA */
+.music-bar {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top:50px;
+    bottom: 20px;
+    width: 350px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.music-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.music-control-btn { position: relative; z-index: 2; margin-left: 50px;}
+.music-icon { width: 60px; height: 60px; }
+.song-info { color: #000; font-size: 10px; margin-left:50px;z-index: 2; }
+
+
+.musica{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+/* Botón de control */
+.music-control-btn img {
+  width: 30px;
+  cursor: pointer;
+}
+
+/* Info de la canción */
+.song-info {
+  font-weight: bold;
+  font-size: 10px;
+  margin-right: 60px;
+  margin-bottom: 5px;
+}
+
+/* Menú hamburguesa */
+.music-menu {
+  position: relative; /* Para que el menú se posicione respecto al botón */
+  display: inline-block; /* Ajusta al tamaño del contenido */
+}
+
+.music-menu-btn {
+  position: relative; /* relativo al contenedor */
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 2px 6px;
+  z-index: 3;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.music-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+}
+
+/* Lista de canciones (menú desplegable) */
+.music-menu-list {
+  position: absolute;
+  bottom: 100%; /* Aparece encima del botón */
+  left: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 6px 0;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.music-menu-list.show {
+  display: block;
+}
+
+.music-menu-list div {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.music-menu-list div:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Kirby izquierdo: dentro de musicBar */
+#kirby-left-container {
+  position: absolute;
+  bottom: 10px;
+  left: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
+  width: 80px;
+  height: 80px;
+  z-index: 999;
+}
+
+/* Kirby derecho: dentro de musicBar */
+#kirby-right-container {
+  position: absolute;
+  bottom: 0px;
+  right: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
+  width: 80px;
+  height: 80px;
+  z-index: 999;
+}
+
+#kirby-left-container img,
+#kirby-right-container img {
+  width: 100%;
+  height: 100%;
+  display: none; /* se mostrará solo al reproducir Kirby */
+}
+
+.kirby-rain {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+}
+
+
+
+/* FONDO ERROR3 */
+body.error-bg {
+    background-image: url('../assets/img/error3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    transition: background-image 0.5s ease;
+}
+
+#play-pause-icon {
+  width: 24px;  /* Ajusta este valor al tamaño que quieras */
+  height: 24px; /* Mantén proporción si quieres */
+  cursor: pointer; /* Para que se vea clickable */
+}

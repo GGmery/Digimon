@@ -305,7 +305,7 @@ footer {
 /* ========================= */
 /* 🎵 BARRA DE MÚSICA */
 .music-bar {
-    position: fixed;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
     bottom: 20px;
@@ -330,7 +330,7 @@ footer {
 }
 
 .music-control-btn { position: relative; z-index: 2; margin-left: 50px;}
-.music-icon { width: 40px; height: 40px; }
+.music-icon { width: 60px; height: 60px; }
 .song-info { color: #000; font-size: 10px; margin-left:50px;z-index: 2; }
 
 
@@ -346,82 +346,124 @@ footer {
 
 /* Botón de control */
 .music-control-btn img {
-  width: 32px;
+  width: 30px;
   cursor: pointer;
 }
 
 /* Info de la canción */
 .song-info {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 10px;
+  margin-right: 60px;
+  margin-bottom: 5px;
 }
 
 /* Menú hamburguesa */
 .music-menu {
-  position: relative;
+  position: relative; /* Para que el menú se posicione respecto al botón */
+  display: inline-block; /* Ajusta al tamaño del contenido */
 }
 
-.hamburger-btn {
-  font-size: 20px;
-  cursor: pointer;
-  background: transparent;
+.music-menu-btn {
+  position: relative; /* relativo al contenedor */
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  background: rgba(255, 255, 255, 0.7);
   border: none;
-  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 2px 6px;
+  z-index: 3;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
 }
 
-/* Lista de canciones */
-.song-list {
+.music-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+}
+
+/* Lista de canciones (menú desplegable) */
+.music-menu-list {
   position: absolute;
-  bottom: 40px;
-  right: 0;
-  background: white;
+  bottom: 100%; /* Aparece encima del botón */
+  left: 0;
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid #ccc;
-  border-radius: 8px;
-  list-style: none;
-  padding: 8px;
-  margin: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 6px 0;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-
-
-.song-list.hidden{
-    display: none !important;
-}
-
-.song-list.show {
+.music-menu-list.show {
   display: block;
 }
 
-.song-list li {
-  padding: 6px 10px;
+.music-menu-list div {
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #222;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.song-list li:hover {
-  background-color: #f0f0f0;
+.music-menu-list div:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Kirby izquierdo: dentro de musicBar */
+#kirby-left-container {
+  position: absolute;
+  bottom: 10px;
+  left: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
+  width: 80px;
+  height: 80px;
+  z-index: 999;
+}
+
+/* Kirby derecho: dentro de musicBar */
+#kirby-right-container {
+  position: absolute;
+  bottom: 0px;
+  right: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
+  width: 80px;
+  height: 80px;
+  z-index: 999;
+}
+
+#kirby-left-container img,
+#kirby-right-container img {
+  width: 100%;
+  height: 100%;
+  display: none; /* se mostrará solo al reproducir Kirby */
+}
+
+.kirby-rain {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
 }
 
 
-/* ========================= */
-/* IMÁGENES ERROR (OCULTAS INICIALMENTE) */
-#error1, #error2 {
-    position: fixed;
-    bottom: 90px; /* Justo encima del reproductor */
-    width: 60px;
-    height: 60px;
-    z-index: 650;
-    display: none;
-}
-
-#error1 { left: calc(50% - 180px); }
-#error2 { right: calc(50% - 180px); }
 
 /* FONDO ERROR3 */
 body.error-bg {
-    background-image: url('assets/img/error3.jpg');
+    background-image: url('../assets/img/error3.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     transition: background-image 0.5s ease;
 }
