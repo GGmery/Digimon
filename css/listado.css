@@ -1,6 +1,4 @@
-/* === GENERALES Y RESET BÁSICO === */
 :root {
-    /* Paleta de la imagen: blanco/gris muy claro */
     --color-background-light: #f5f5f5;
     --color-text-dark: #333;
     --color-card-gray: #d9d9d9;
@@ -8,8 +6,7 @@
     --color-search-border: #999;
     --color-avatar-bg: #387062;
     --color-avatar-text: white;
-    
-    /* Variables para el Dark Theme */
+
     --color-dark-bg: #1e1e1e;
     --color-dark-card-bg: #444;
     --color-dark-text: #f0f0f0;
@@ -31,7 +28,6 @@ body {
     transition: background-color 0.5s, color 0.5s;
 }
 
-/* Estilos para el Modo Noche (activados por JS) */
 body.dark-theme {
     background-color: var(--color-dark-bg);
     color: var(--color-dark-text);
@@ -45,7 +41,6 @@ main {
     align-items: center;
 }
 
-/* === HEADER / TOP BAR === */
 header {
     background-color: white;
     padding: 10px 20px;
@@ -75,7 +70,7 @@ body.dark-theme header {
 }
 
 .digimon-logo {
-    width: 50px; 
+    width: 50px;
     height: auto;
 }
 
@@ -84,7 +79,6 @@ body.dark-theme header {
     font-weight: bold;
 }
 
-/* === ESTRUCTURA DE BÚSQUEDA === */
 #search-section {
     width: 100%;
     max-width: 600px;
@@ -134,7 +128,6 @@ body.dark-theme #search-input {
     color: var(--color-dark-text);
 }
 
-/* === GALERÍA DE CARTAS === */
 #gallery-section {
     width: 100%;
     display: flex;
@@ -147,7 +140,7 @@ body.dark-theme #search-input {
     display: flex;
     justify-content: center;
     gap: 20px;
-    perspective: 1000px; 
+    perspective: 1000px;
     width: 100%;
     max-width: 1000px;
 }
@@ -161,24 +154,22 @@ body.dark-theme #search-input {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     position: relative;
     cursor: pointer;
-    
-    /* Asegura que el contenido, incluso el texto largo, no se salga de la tarjeta */
-    overflow: hidden; 
 
-    transition: 
-        background-color 0.5s, 
+    overflow: hidden;
+
+    transition:
+        background-color 0.5s,
         border-color 0.5s,
-        box-shadow 0.3s ease; 
+        box-shadow 0.3s ease;
     transform-style: preserve-3d;
 }
 
-/* Hover suave: Solo un cambio de sombra */
 .card:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
 body.dark-theme .card:hover {
-    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15); 
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
 }
 
 body.dark-theme .card {
@@ -188,46 +179,49 @@ body.dark-theme .card {
 
 .card img {
     width: 100%;
-    height: 60%; /* 150px de altura para la imagen */
+    height: 60%;
     object-fit: contain;
     padding: 10px;
 }
 
 .card-info {
-    padding: 5px 10px; /* Padding reducido para dar más espacio al texto */
+    padding: 5px 10px;
     text-align: center;
-    /* Esto asegura que la info no se salga, el overflow:hidden en .card también ayuda */
-    height: 40%; /* El 40% restante de los 250px de altura */
+    height: 40%;
 }
 
-/* Gestión de texto largo (el fix para el desbordamiento) */
 .card-info h3 {
-    font-size: 0.9rem; /* Un poco más pequeño */
-    white-space: nowrap; /* Fuerza a que sea una sola línea */
-    overflow: hidden; /* Oculta el texto que se sale */
-    text-overflow: ellipsis; /* Añade "..." al final si está recortado */
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 3px;
 }
 
 .card-info p {
-    font-size: 0.8rem; /* Texto del nivel más pequeño */
+    font-size: 0.8rem;
 }
 
-/* === ARCO (MONTAÑITA) - CORRECCIÓN DE ALTURA AGRESIVA === */
+.card-1 {
+    transform: rotate(-10deg) translateY(100px);
+}
 
-/* Tarjeta 1 y 5: Baja 100px (el punto más bajo del arco) */
-.card-1 { transform: rotate(-10deg) translateY(100px); }
-.card-5 { transform: rotate(10deg) translateY(100px); }
+.card-5 {
+    transform: rotate(10deg) translateY(100px);
+}
 
-/* Tarjeta 2 y 4: Baja 30px (el punto medio del arco) */
-.card-2 { transform: rotate(-5deg) translateY(30px); }
-.card-4 { transform: rotate(5deg) translateY(30px); }
+.card-2 {
+    transform: rotate(-5deg) translateY(30px);
+}
 
-/* Tarjeta 3: Cima de la montañita (0 desplazamiento vertical) */
-.card-3 { transform: rotate(0deg) translateY(0px); }
+.card-4 {
+    transform: rotate(5deg) translateY(30px);
+}
 
+.card-3 {
+    transform: rotate(0deg) translateY(0px);
+}
 
-/* === BOTONES INFERIORES === */
 .controls-section {
     display: flex;
     flex-direction: column;
@@ -269,7 +263,6 @@ body.dark-theme .music-btn {
     background-color: #333;
 }
 
-/* === FOOTER === */
 footer {
     background-color: var(--color-footer-gray);
     width: 100%;
@@ -286,12 +279,6 @@ body.dark-theme footer {
     color: var(--color-dark-text);
 }
 
-
-/* ########################################## */
-/* === ESTILOS DEL BOTÓN DÍA/NOCHE (GSAP) === */
-/* ########################################## */
-
-/* === CONTENEDOR PRINCIPAL === */
 .theme-container {
     position: relative;
     width: 197px;
@@ -300,18 +287,16 @@ body.dark-theme footer {
     cursor: pointer;
 }
 
-/* === RECTÁNGULO DE FONDO === */
 .theme-container .rectangle1 {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: fill; 
+    object-fit: fill;
     z-index: 0;
 }
 
-/* === GRUPOS (DAY/NIGHT BOX) === */
 .group {
     position: absolute;
     top: 0;
@@ -321,21 +306,20 @@ body.dark-theme footer {
     transition: opacity 0.5s ease;
 }
 
-/* === ESTADO INICIAL DEL MODO NOCHE === */
 .night-box {
-    opacity: 0; 
-    pointer-events: none; 
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* === SOL / LUNA === */
 .sol {
     position: absolute;
     width: 22%;
     height: 70%;
     top: 10%;
-    left: 5%; 
+    left: 5%;
     z-index: 1;
 }
+
 .sol img {
     width: 100%;
     height: 100%;
@@ -347,21 +331,21 @@ body.dark-theme footer {
     width: 22%;
     height: 70%;
     top: 10%;
-    right: 10%; 
+    right: 10%;
     z-index: 1;
-    opacity: 0; 
+    opacity: 0;
 }
+
 .moon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-/* === ANGEMON / DEVIMON === */
 .angemon {
     position: absolute;
     top: 1px;
-    right: 10px; 
+    right: 10px;
     width: 59px;
     height: 59px;
     object-fit: cover;
@@ -371,17 +355,16 @@ body.dark-theme footer {
 
 .devimon {
     position: absolute;
-    top: 1px; /* Alineación superior (vertical) igual a Angemon */
-    left: 10px; 
+    top: 1px;
+    left: 10px;
     width: 56px;
     height: 56px;
     object-fit: cover;
     aspect-ratio: 1;
     z-index: 2;
-    opacity: 0; 
+    opacity: 0;
 }
 
-/* === FOOTER === */
 footer {
     width: 100%;
     padding: 20px;
@@ -392,13 +375,11 @@ footer {
     z-index: 50;
 }
 
-/* ========================= */
-/* 🎵 BARRA DE MÚSICA */
 .music-bar {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin-top:50px;
+    margin-top: 50px;
     bottom: 20px;
     width: 350px;
     height: 60px;
@@ -420,137 +401,148 @@ footer {
     z-index: 0;
 }
 
-.music-control-btn { position: relative; z-index: 2; margin-left: 50px;}
-.music-icon { width: 60px; height: 60px; }
-.song-info { color: #000; font-size: 10px; margin-left:50px;z-index: 2; }
-
-
-.musica{
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+.music-control-btn {
+    position: relative;
+    z-index: 2;
+    margin-left: 50px;
 }
 
-
-/* Botón de control */
-.music-control-btn img {
-  width: 30px;
-  cursor: pointer;
+.music-icon {
+    width: 60px;
+    height: 60px;
 }
 
-/* Info de la canción */
 .song-info {
-  font-weight: bold;
-  font-size: 10px;
-  margin-right: 60px;
-  margin-bottom: 5px;
+    color: #000;
+    font-size: 10px;
+    margin-left: 50px;
+    z-index: 2;
 }
 
-/* Menú hamburguesa */
+
+.musica {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+.music-control-btn img {
+    width: 30px;
+    cursor: pointer;
+}
+
+.song-info {
+    font-weight: bold;
+    font-size: 10px;
+    margin-right: 60px;
+    margin-bottom: 5px;
+}
+
 .music-menu {
-  position: relative; /* Para que el menú se posicione respecto al botón */
-  display: inline-block; /* Ajusta al tamaño del contenido */
+    position: relative;
+    display: inline-block;
 }
 
 .music-menu-btn {
-  position: relative; /* relativo al contenedor */
-  font-size: 16px;
-  font-weight: bold;
-  color: #000;
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 2px 6px;
-  z-index: 3;
-  transition: all 0.2s ease-in-out;
-  margin-bottom: 10px;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 2px 6px;
+    z-index: 3;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 10px;
 }
 
 .music-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
 }
 
-/* Lista de canciones (menú desplegable) */
 .music-menu-list {
-  position: absolute;
-  bottom: 100%; /* Aparece encima del botón */
-  left: 0;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 6px 0;
-  width: 220px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: none;
-  z-index: 999;
-  backdrop-filter: blur(8px);
-  animation: fadeIn 0.3s ease-in-out;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px 0;
+    width: 220px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
 .music-menu-list.show {
-  display: block;
+    display: block;
 }
 
 .music-menu-list div {
-  padding: 8px 12px;
-  font-size: 13px;
-  color: #222;
-  cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .music-menu-list div:hover {
-  background: #f0f0f0;
-  color: #000;
+    background: #f0f0f0;
+    color: #000;
 }
 
-/* Animación suave */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Kirby izquierdo: dentro de musicBar */
 #kirby-left-container {
-  position: absolute;
-  bottom: 10px;
-  left: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
-  width: 80px;
-  height: 80px;
-  z-index: 999;
+    position: absolute;
+    bottom: 10px;
+    left: -10px;
+    width: 80px;
+    height: 80px;
+    z-index: 999;
 }
 
-/* Kirby derecho: dentro de musicBar */
 #kirby-right-container {
-  position: absolute;
-  bottom: 0px;
-  right: -10px; /* se ajusta al tamaño de la imagen y distancia deseada */
-  width: 80px;
-  height: 80px;
-  z-index: 999;
+    position: absolute;
+    bottom: 0px;
+    right: -10px;
+    width: 80px;
+    height: 80px;
+    z-index: 999;
 }
 
 #kirby-left-container img,
 #kirby-right-container img {
-  width: 100%;
-  height: 100%;
-  display: none; /* se mostrará solo al reproducir Kirby */
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 
 .kirby-rain {
-  position: fixed;
-  pointer-events: none;
-  z-index: 999;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
 }
 
-
-
-/* FONDO ERROR3 */
 body.error-bg {
     background-image: url('../assets/img/error3.jpg');
     background-size: cover;
@@ -560,7 +552,7 @@ body.error-bg {
 }
 
 #play-pause-icon {
-  width: 24px;  /* Ajusta este valor al tamaño que quieras */
-  height: 24px; /* Mantén proporción si quieres */
-  cursor: pointer; /* Para que se vea clickable */
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }

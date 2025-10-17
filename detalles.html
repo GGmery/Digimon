@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalles</title>
   <link rel="stylesheet" href="css/detalles.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
 </head>
+
 <body>
   <header>
     <div class="top-bar">
@@ -17,7 +19,6 @@
       </div>
 
       <div class="theme-container">
-        <!-- ☀️ Día -->
         <div class="day-box group">
           <img class="rectangle1" src="assets/img/rectangle-1.svg" alt="Fondo día">
           <div class="sol">
@@ -26,7 +27,6 @@
           <img class="angemon" src="assets/img/Angemon.webp" alt="Angemon">
         </div>
 
-        <!-- 🌙 Noche -->
         <div class="night-box group">
           <img class="rectangle1" src="assets/img/rectangle-2.svg" alt="Fondo noche">
           <div class="moon">
@@ -43,12 +43,10 @@
       <div id="loader" class="loader-circle" style="display:none;">Cargando detalles...</div>
 
       <div id="detail-container" class="detail-container">
-        <!-- Imagen principal -->
         <div class="detail-image">
           <img id="digimon-image" src="" alt="Imagen del Digimon">
         </div>
 
-        <!-- Información principal -->
         <div class="detail-info">
           <h2 id="digimon-name">Nombre del Digimon</h2>
           <ul class="info-list">
@@ -64,15 +62,13 @@
         </div>
       </div>
 
-      <!-- Línea evolutiva -->
       <section id="evolution-line" class="evolution-line">
         <h3>Línea Evolutiva</h3>
         <div id="evolution-container" class="evolution-container">
-          <!-- Aquí se insertarán las evoluciones -->
+
         </div>
       </section>
 
-      <!-- Botón volver -->
       <div class="back-section">
         <button id="back-btn" class="small-btn back-btn">
           <span class="material-icons">arrow_back</span> Volver
@@ -81,10 +77,10 @@
     </section>
   </main>
   <div id="music-bar" class="music-bar">
-    <img src="assets/img/music-rectangle.svg" alt="Fondo de la barra de música" class="music-bg"/>
-    
+    <img src="assets/img/music-rectangle.svg" alt="Fondo de la barra de música" class="music-bg" />
+
     <div id="music-control-btn" class="music-control-btn">
-      <img id="play-pause-icon" src="assets/img/play.svg" alt="Play/Pause" class="music-icon"/>
+      <img id="play-pause-icon" class="play-pause-icon" src="assets/img/play.svg" alt="Play/Pause" class="music-icon" />
     </div>
     <div id="song-info" class="song-info">
       Brave Heart - Ayumi Miyazaki
@@ -96,4 +92,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
   <script src="js/detalles.js"></script>
 </body>
+
 </html>
